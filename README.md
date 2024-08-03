@@ -1,4 +1,3 @@
-![image](https://github.com/user-attachments/assets/35abfd92-6fcb-4937-bbce-4fbbdac34624)# honeykey
 
 Honeypot based on the project of Florian Dalwigk.
 
