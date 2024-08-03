@@ -1,15 +1,37 @@
 import honeypot.py
 import subprocess, platform
+import socket 
+import threading 
+import time 
 
-if platform == "linux" or platform == "linux2":
-    setupLinux()
-elif platform == "win32":
-    setupWin()
+def scan_port(port): 
+	try: 
+		host = "localhost"
+		host_ip = socket.gethostbyname(host) 
+		status = False
 
-def setupLinux():
-#verifier librairie socket, paramiko et threading sont installé
-    subprocess.run(["ls", "-l"])
-#vérifier si la communication ssh est ouverte sur port 22
+		# create instance of socket 
+		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 
-def setupWin():
-    subprocess.run(["ls", "-l"])
+		# connecting the host ip address and port 
+		s.connect((host_ip, port)) 
+		try: 
+			banner = s.recv(1024).decode() 
+			print("port {} is open with banner {}".format(port, banner)) 
+
+		except: 
+			print("port {} is open ".format(port)) 
+
+	except: 
+		pass
+
+
+start_time = time.time() 
+
+for i in range(0, 100000): 
+	thread = threading.Thread(target=scan_port, args=[i]) 
+	thread.start() 
+
+end_time = time.time() 
+
+honeypot()
