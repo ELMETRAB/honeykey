@@ -1,5 +1,7 @@
 # HoneyKey
 
+> [!CAUTION]
+> Advises about risks or negative outcomes of certain actions.
 
 Inspiré du projet de Florian Dalwigk.
 
