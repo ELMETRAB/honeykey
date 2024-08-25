@@ -1,7 +1,7 @@
 # HoneyKey
 
 > [!CAUTION]
-> Advises about risks or negative outcomes of certain actions.
+> Actuellement en développement, Le projet n'est pas opérationnel.
 
 Inspiré du projet de Florian Dalwigk.
 
