@@ -1,37 +1,21 @@
-import honeypot.py
-import subprocess, platform
-import socket 
-import threading 
-import time 
+import socket
+import subprocess
 
-def scan_port(port): 
-	try: 
-		host = "localhost"
-		host_ip = socket.gethostbyname(host) 
-		status = False
+command = [
+    'netsh', 'advfirewall', 'firewall', 'add', 'rule', 
+    'name="Open Port 22"', 
+    'protocol=TCP', 'dir=in', 'localport=22', 'action=allow'
+]
 
-		# create instance of socket 
-		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
-
-		# connecting the host ip address and port 
-		s.connect((host_ip, port)) 
-		try: 
-			banner = s.recv(1024).decode() 
-			print("port {} is open with banner {}".format(port, banner)) 
-
-		except: 
-			print("port {} is open ".format(port)) 
-
-	except: 
-		pass
-
-
-start_time = time.time() 
-
-for i in range(0, 100000): 
-	thread = threading.Thread(target=scan_port, args=[i]) 
-	thread.start() 
-
-end_time = time.time() 
-
-SSHhoneypot()
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+result = sock.connect_ex(('127.0.0.1',22))
+if result == 0:
+   print "Le port est ouvert"
+	SSHhoneypot()
+else:
+   print "Port is not open"
+   subprocess.run(command, shell=True, check=True)
+   print("Le port 22 est maintenant ouvert.")
+   SSHhoneypot()
+	
+sock.close()
